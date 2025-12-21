@@ -1,0 +1,316 @@
+/* BEM (Block Element Modifier) Methodology */
+/* Block__Element--Modifier */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --color-bg-primary: #000000;
+    --color-bg-secondary: #0A0A0A;
+    --color-text-primary: #FFFFFF;
+    --color-text-secondary: rgba(255, 255, 255, 0.7);
+    --color-accent: rgba(255, 255, 255, 0.1);
+    --transition-duration: 0.3s;
+}
+
+body {
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* ============================================
+   NAVIGATION BLOCK
+   ============================================ */
+.nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    background: linear-gradient(180deg, var(--color-bg-primary) 0%, transparent 100%);
+    backdrop-filter: blur(8px);
+}
+
+.nav__logo {
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    font-weight: 300;
+    color: var(--color-text-primary);
+}
+
+.nav__list {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+}
+
+.nav__link {
+    color: var(--color-text-primary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    transition: color var(--transition-duration) ease;
+}
+
+.nav__link:hover {
+    color: var(--color-text-secondary);
+}
+
+/* ============================================
+   SECTION BLOCK
+   ============================================ */
+.section {
+    padding: 6rem 4rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.section:first-of-type {
+    margin-top: 60px;
+}
+
+.section__title {
+    font-size: 2.5rem;
+    font-weight: 300;
+    letter-spacing: 3px;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+/* ============================================
+   GRID BLOCK (Portfolio)
+   ============================================ */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+}
+
+.grid__item {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+}
+
+.grid__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-duration) ease;
+}
+
+.grid__item:hover .grid__image {
+    transform: scale(1.05);
+}
+
+.grid__overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity var(--transition-duration) ease;
+}
+
+.grid__item:hover .grid__overlay {
+    opacity: 1;
+}
+
+.grid__overlay-title {
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin-bottom: 0.5rem;
+}
+
+.grid__overlay-category {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+}
+
+.grid__device-info {
+    display: block;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ============================================
+   ABOUT BLOCK
+   ============================================ */
+.about {
+    max-width: 800px;
+    text-align: center;
+}
+
+.about__title {
+    font-size: 2rem;
+    font-weight: 300;
+    margin-bottom: 2rem;
+    letter-spacing: 2px;
+}
+
+.about__text {
+    color: var(--color-text-secondary);
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+/* ============================================
+   SERVICES BLOCK
+   ============================================ */
+.services {
+    background: rgba(255, 255, 255, 0.02);
+    border-top: 1px solid var(--color-accent);
+    border-bottom: 1px solid var(--color-accent);
+}
+
+.services__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.services__item {
+    padding: 2rem;
+    text-align: center;
+    transition: transform var(--transition-duration) ease;
+}
+
+.services__item:hover {
+    transform: translateY(-5px);
+}
+
+.services__item-title {
+    font-size: 1.3rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+    color: #ffffff;
+}
+
+.services__item-description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+}
+
+/* ============================================
+   CONTACT BLOCK
+   ============================================ */
+.contact {
+    text-align: center;
+}
+
+.contact__title {
+    font-size: 2rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+}
+
+.contact__subtitle {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 2rem;
+}
+
+.contact__email {
+    display: inline-block;
+    color: var(--color-text-primary);
+    text-decoration: none;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    border-bottom: 1px solid var(--color-accent);
+    transition: border-color var(--transition-duration) ease;
+    margin-bottom: 3rem;
+}
+
+.contact__email:hover {
+    border-color: var(--color-text-primary);
+}
+
+.contact__social {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.contact__social-link {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    transition: color var(--transition-duration) ease;
+}
+
+.contact__social-link:hover {
+    color: var(--color-text-primary);
+}
+
+/* ============================================
+   FOOTER BLOCK
+   ============================================ */
+.footer {
+    padding: 2rem;
+    text-align: center;
+    color: var(--color-text-secondary);
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    border-top: 1px solid var(--color-accent);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+    .nav {
+        padding: 1.5rem;
+        flex-wrap: wrap;
+    }
+
+    .nav__logo {
+        font-size: 1rem;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .nav__list {
+        gap: 1rem;
+        font-size: 0.85rem;
+    }
+
+    .section {
+        padding: 3rem 1.5rem;
+    }
+
+    .section__title {
+        font-size: 1.8rem;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .services__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about {
+        padding: 0;
+    }
+}

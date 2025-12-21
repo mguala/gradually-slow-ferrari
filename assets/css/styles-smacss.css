@@ -1,0 +1,365 @@
+/* SMACSS (Scalable and Modular Architecture for CSS) */
+/* Base | Layout | Module | State | Theme */
+
+/* ============================================
+   BASE RULES - Element selectors
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-bg: #000000;
+    --secondary-bg: #0A0A0A;
+    --primary-text: #FFFFFF;
+    --secondary-text: rgba(255, 255, 255, 0.7);
+    --border-color: rgba(255, 255, 255, 0.1);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--primary-bg);
+    color: var(--primary-text);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 300;
+}
+
+h2 {
+    font-size: 2rem;
+    letter-spacing: 2px;
+}
+
+h3 {
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+}
+
+p {
+    color: var(--secondary-text);
+    margin-bottom: 1.5rem;
+}
+
+a {
+    color: var(--primary-text);
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+a:hover {
+    color: var(--secondary-text);
+}
+
+/* ============================================
+   LAYOUT RULES - Major sections
+   ============================================ */
+
+.l-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 2rem;
+    z-index: 1000;
+    background: linear-gradient(180deg, var(--primary-bg) 0%, transparent 100%);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.l-main {
+    padding: 6rem 4rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.l-main:first-of-type {
+    margin-top: 60px;
+}
+
+.l-footer {
+    padding: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.l-sidebar {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.l-grid {
+    display: grid;
+    gap: 0;
+}
+
+.l-grid-2col {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.l-grid-auto {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.l-flex {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* ============================================
+   MODULE RULES - Reusable components
+   ============================================ */
+
+/* Module: Navigation */
+.nav-primary {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-primary a {
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+.brand {
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    font-weight: 300;
+}
+
+/* Module: Grid Item / Image Gallery */
+.grid-item {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+}
+
+.grid-item-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.grid-item-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.grid-item-title {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.grid-item-category {
+    font-size: 0.9rem;
+    color: var(--secondary-text);
+}
+
+.grid-item-device {
+    display: block;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Module: Service Card */
+.service-card {
+    padding: 2rem;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.02);
+    transition: transform 0.3s ease;
+}
+
+.service-card-title {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+}
+
+.service-card-description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--secondary-text);
+}
+
+/* Module: Section */
+.section-title {
+    font-size: 2.5rem;
+    letter-spacing: 3px;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+/* Module: About */
+.about-section {
+    text-align: center;
+}
+
+.about-section h2 {
+    margin-bottom: 2rem;
+}
+
+.about-section p {
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+/* Module: Services */
+.services-section {
+    background: rgba(255, 255, 255, 0.02);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.services-grid {
+    margin-top: 3rem;
+}
+
+/* Module: Contact */
+.contact-section {
+    text-align: center;
+}
+
+.contact-email {
+    display: inline-block;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    margin-bottom: 3rem;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.social-links a {
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+/* ============================================
+   STATE RULES - Changes to components
+   ============================================ */
+
+.is-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.is-hovered {
+    opacity: 1;
+}
+
+/* Grid Item states */
+.grid-item:hover .grid-item-image {
+    transform: scale(1.05);
+}
+
+.grid-item:hover .grid-item-overlay {
+    opacity: 1;
+}
+
+/* Service Card states */
+.service-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Contact Link states */
+.contact-email:hover {
+    border-color: var(--primary-text);
+}
+
+.social-links a:hover {
+    color: var(--primary-text);
+}
+
+/* ============================================
+   THEME RULES - Visual styling variations
+   ============================================ */
+
+.theme-dark {
+    background-color: var(--primary-bg);
+}
+
+.theme-section-divider {
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.text-muted {
+    color: var(--secondary-text);
+}
+
+.text-centered {
+    text-align: center;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN (Mobile-First)
+   ============================================ */
+
+@media (max-width: 768px) {
+    .l-header {
+        padding: 1.5rem;
+        flex-wrap: wrap;
+    }
+
+    .brand {
+        font-size: 1rem;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .nav-primary {
+        gap: 1rem;
+        font-size: 0.85rem;
+    }
+
+    .l-main {
+        padding: 3rem 1.5rem;
+    }
+
+    .l-sidebar {
+        padding: 0;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+    .l-grid-2col {
+        grid-template-columns: 1fr;
+    }
+
+    .l-grid-auto {
+        grid-template-columns: 1fr;
+    }
+
+    .service-card {
+        padding: 1.5rem;
+    }
+}
