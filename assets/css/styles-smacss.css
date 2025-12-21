@@ -1,0 +1,514 @@
+/**
+ * SMACSS - Scalable and Modular Architecture for CSS
+ * 
+ * Categorías:
+ * 1. BASE: Estilos por defecto, resets, valores por defecto de elementos HTML
+ * 2. LAYOUT: Divide la página en secciones principales
+ * 3. MODULE: Componentes reutilizables
+ * 4. STATE: Cambios de estado (activo, desactivo, visible, oculto)
+ * 5. THEME: Apariencia visual, colores, fuentes
+ */
+
+/* ========================================
+   1. BASE - Estilos por defecto
+   ======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 300;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+/* ========================================
+   2. LAYOUT - Estructura de la página
+   ======================================== */
+
+.l-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.l-hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.l-portfolio {
+    padding: 0;
+    margin-top: 60px;
+    position: relative;
+}
+
+.l-about {
+    padding: 8rem 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.l-services {
+    padding: 8rem 4rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.l-contact {
+    padding: 8rem 2rem;
+    text-align: center;
+}
+
+.l-footer {
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+/* ========================================
+   3. MODULE - Componentes reutilizables
+   ======================================== */
+
+/* --- MÓDULO: Navegación --- */
+.nav {
+    padding: 2rem;
+    background: linear-gradient(180deg, #000000 0%, transparent 100%);
+    backdrop-filter: blur(8px);
+}
+
+.nav-logo {
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+}
+
+.nav-list {
+    display: flex;
+    gap: 3rem;
+}
+
+.nav-item {
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+}
+
+.nav-item:nth-child(1) { animation-delay: 0.2s; }
+.nav-item:nth-child(2) { animation-delay: 0.3s; }
+.nav-item:nth-child(3) { animation-delay: 0.4s; }
+
+/* --- MÓDULO: Grid de Portfolio --- */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+}
+
+.gallery-item {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+}
+
+.gallery-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover .gallery-image {
+    transform: scale(1.02);
+}
+
+.gallery-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem;
+    background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.gallery-item:hover .gallery-overlay {
+    opacity: 1;
+}
+
+.gallery-title {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.gallery-category {
+    font-size: 0.9rem;
+    opacity: 0.7;
+    margin-bottom: 0.5rem;
+}
+
+.gallery-device {
+    font-size: 0.75rem;
+    opacity: 0.5;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* --- MÓDULO: Sección Acerca De --- */
+.about {
+    text-align: center;
+}
+
+.about-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    letter-spacing: 2px;
+}
+
+.about-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    opacity: 0.7;
+    margin-bottom: 1.5rem;
+}
+
+/* --- MÓDULO: Grid de Servicios --- */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 4rem 2rem;
+    margin-top: 4rem;
+}
+
+.service-card {
+    text-align: center;
+    padding: 2.5rem 2rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent 0%, rgba(255,255,255,0.03) 100%);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.service-card:hover::before {
+    transform: translateX(100%);
+}
+
+.service-title {
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+}
+
+.service-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #888;
+}
+
+/* --- MÓDULO: Contacto --- */
+.contact {
+    text-align: center;
+}
+
+.contact-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    letter-spacing: 2px;
+}
+
+.contact-subtitle {
+    margin-bottom: 2rem;
+    opacity: 0.7;
+}
+
+.contact-email {
+    display: inline-block;
+    margin: 2rem 0;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.5rem 0;
+}
+
+.contact-email:hover {
+    border-color: #ffffff;
+}
+
+.contact-social {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.contact-social-link {
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    opacity: 0.7;
+}
+
+.contact-social-link:hover {
+    opacity: 1;
+}
+
+/* ========================================
+   4. STATE - Estados de componentes
+   ======================================== */
+
+.is-visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+.is-loaded {
+    opacity: 1;
+}
+
+.is-active {
+    opacity: 0.6;
+}
+
+.is-hidden {
+    display: none;
+}
+
+.is-disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/* Estados de animación */
+.nav-logo.is-animated {
+    opacity: 1;
+    animation: fadeIn 1s ease forwards;
+}
+
+.nav-item.is-animated {
+    opacity: 1;
+    animation: fadeIn 1s ease forwards;
+}
+
+.service-card.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.gallery-item.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ========================================
+   5. THEME - Tema visual (colores, tipografía)
+   ======================================== */
+
+/* Variables de tema */
+:root {
+    /* Colores */
+    --color-bg-primary: #000000;
+    --color-bg-secondary: #0A0A0A;
+    --color-text-primary: #FFFFFF;
+    --color-text-secondary: rgba(255, 255, 255, 0.7);
+    --color-text-tertiary: rgba(255, 255, 255, 0.5);
+    --color-border: rgba(255, 255, 255, 0.1);
+    --color-accent: rgba(255, 255, 255, 0.1);
+    --color-overlay: rgba(0, 0, 0, 0.7);
+    --color-gradient-blue: rgba(132, 197, 247, 0.12);
+    --color-gradient-yellow: rgba(255, 208, 112, 0.12);
+    --color-gradient-pink: rgba(242, 95, 127, 0.08);
+    
+    /* Tipografía */
+    --font-family: 'Helvetica Neue', Arial, sans-serif;
+    --font-size-base: 1rem;
+    --font-size-large: 1.2rem;
+    --font-size-xlarge: 1.5rem;
+    --font-size-heading: 2rem;
+    --font-size-heading-lg: 3rem;
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    
+    /* Espaciado */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 2rem;
+    --spacing-lg: 4rem;
+    --spacing-xl: 8rem;
+    
+    /* Transiciones */
+    --transition-base: all 0.3s ease;
+    --transition-slow: all 0.8s ease;
+}
+
+body {
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 80% 20%, var(--color-gradient-blue) 0%, transparent 60%),
+        radial-gradient(circle at 20% 80%, var(--color-gradient-yellow) 0%, transparent 60%),
+        radial-gradient(circle at 50% 50%, var(--color-gradient-pink) 0%, transparent 70%),
+        radial-gradient(circle at 0% 100%, var(--color-gradient-blue) 0%, transparent 50%),
+        radial-gradient(circle at 100% 0%, var(--color-gradient-yellow) 0%, transparent 50%);
+    z-index: -1;
+    animation: gradientPulse 12s ease-in-out infinite;
+    pointer-events: none;
+    mix-blend-mode: soft-light;
+}
+
+/* Tema: Colores de navegación */
+.nav {
+    background: linear-gradient(180deg, var(--color-bg-primary) 0%, transparent 100%);
+}
+
+.nav-logo,
+.nav-item {
+    color: var(--color-text-primary);
+    letter-spacing: 2px;
+}
+
+.nav-item:hover {
+    opacity: 0.6;
+}
+
+/* Tema: Colores de cards */
+.service-card {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: var(--color-border);
+}
+
+.service-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Tema: Colores de texto */
+.about-text,
+.service-text,
+.contact-subtitle {
+    color: var(--color-text-secondary);
+}
+
+.gallery-device {
+    color: var(--color-text-tertiary);
+}
+
+/* ========================================
+   ANIMACIONES
+   ======================================== */
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes gradientPulse {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+    .l-header {
+        padding: 1.5rem 2rem;
+    }
+
+    .nav {
+        padding: 1.5rem 2rem;
+    }
+
+    .nav-list {
+        gap: 1.5rem;
+    }
+
+    .gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .l-services {
+        padding: 4rem 2rem;
+    }
+
+    .services-grid {
+        gap: 2rem;
+    }
+}

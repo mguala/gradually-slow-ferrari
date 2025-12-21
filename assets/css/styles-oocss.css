@@ -1,0 +1,437 @@
+/**
+ * OOCSS - Object-Oriented CSS
+ * Principios:
+ * 1. Separar estructura (layout) de apariencia (skin)
+ * 2. Separar contenedor de contenido
+ * 3. Crear objetos reutilizables
+ * 
+ * Estructura: .objeto { estructura } + .skin--variacion { apariencia }
+ */
+
+/* ========================================
+   RESET & VARIABLES
+   ======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-primary: #000000;
+    --bg-secondary: #0A0A0A;
+    --text-primary: #FFFFFF;
+    --text-secondary: rgba(255, 255, 255, 0.7);
+    --accent: rgba(255, 255, 255, 0.1);
+    --overlay: rgba(0, 0, 0, 0.7);
+    --transition: all 0.3s ease;
+}
+
+/* ========================================
+   OBJETO BASE: CONTENEDOR
+   Estructura: espaciado, display, posicionamiento
+   ======================================== */
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+
+.container--fullwidth {
+    padding: 0;
+}
+
+.container--padded {
+    padding: 2rem;
+}
+
+.container--large-padded {
+    padding: 8rem 4rem;
+}
+
+.container--max-width {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* ========================================
+   OBJETO: GRID / LAYOUT
+   Estructura: sistema de grid flexible
+   ======================================== */
+
+.grid {
+    display: grid;
+    gap: 0;
+}
+
+.grid--columns-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.grid--columns-auto {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.grid--gap-large {
+    gap: 4rem 2rem;
+}
+
+.grid--gap-none {
+    gap: 0;
+}
+
+.grid__item {
+    position: relative;
+}
+
+.grid__item--aspect-1 {
+    aspect-ratio: 1;
+    overflow: hidden;
+}
+
+/* ========================================
+   OBJETO: CARD / ITEM
+   Estructura: base para componentes reutilizables
+   ======================================== */
+
+.card {
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+}
+
+.card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+.card:hover .card__image {
+    transform: scale(1.02);
+}
+
+/* Skin: Apariencia de tarjeta de portfolio */
+.card--portfolio {
+    aspect-ratio: 1;
+}
+
+.card--service {
+    text-align: center;
+    padding: 2.5rem 2rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card--service:hover {
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    transform: translateY(-10px);
+}
+
+/* ========================================
+   OBJETO: OVERLAY / GRADIENT
+   Estructura: capa superpuesta
+   ======================================== */
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.overlay--gradient-bottom {
+    background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, transparent 100%);
+}
+
+.card:hover .overlay {
+    opacity: 1;
+}
+
+.overlay__title {
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.overlay__subtitle {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.overlay__meta {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ========================================
+   OBJETO: NAVEGACIÓN
+   Estructura: lista flexible
+   ======================================== */
+
+.nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav--padded {
+    padding: 2rem;
+}
+
+.nav--gradient-bg {
+    background: linear-gradient(180deg, var(--bg-primary) 0%, transparent 100%);
+    backdrop-filter: blur(8px);
+}
+
+.nav__logo {
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 3px;
+    color: var(--text-primary);
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+}
+
+.nav__list {
+    display: flex;
+    gap: 3rem;
+    list-style: none;
+}
+
+.nav__item {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+    transition: opacity 0.3s ease;
+}
+
+.nav__item:hover {
+    opacity: 0.6;
+}
+
+/* Skin: Retrasos de animación */
+.nav__item:nth-child(1) { animation-delay: 0.2s; }
+.nav__item:nth-child(2) { animation-delay: 0.3s; }
+.nav__item:nth-child(3) { animation-delay: 0.4s; }
+
+/* ========================================
+   OBJETO: SECCIÓN
+   Estructura: contenedor de sección
+   ======================================== */
+
+.section {
+    position: relative;
+    z-index: 1;
+}
+
+.section--fullheight {
+    height: 100vh;
+}
+
+.section--padded-large {
+    padding: 8rem 4rem;
+}
+
+.section--padded-medium {
+    padding: 8rem 2rem;
+}
+
+.section--padded-centered {
+    padding: 8rem 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.section__title {
+    font-size: 3rem;
+    font-weight: 300;
+    letter-spacing: 5px;
+    margin-bottom: 4rem;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s ease;
+}
+
+.section__title--visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ========================================
+   OBJETO: TEXTO
+   Estructura: tipografía reutilizable
+   ======================================== */
+
+.text {
+    color: var(--text-primary);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+}
+
+.text--primary {
+    color: var(--text-primary);
+}
+
+.text--secondary {
+    color: var(--text-secondary);
+}
+
+.text--large {
+    font-size: 1.2rem;
+    line-height: 1.8;
+}
+
+.text--meta {
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+.text--heading-large {
+    font-size: 3rem;
+    font-weight: 300;
+    letter-spacing: 5px;
+}
+
+.text--heading-medium {
+    font-size: 2rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    margin-bottom: 2rem;
+}
+
+/* ========================================
+   OBJETO: LINK / BOTÓN
+   Estructura: interacción
+   ======================================== */
+
+.link {
+    text-decoration: none;
+    transition: var(--transition);
+    color: var(--text-primary);
+}
+
+.link--bordered {
+    border-bottom: 1px solid var(--accent);
+    display: inline-block;
+    padding: 0.5rem 0;
+}
+
+.link--bordered:hover {
+    border-color: var(--text-primary);
+}
+
+.link--social {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+.link--social:hover {
+    color: var(--text-primary);
+}
+
+/* ========================================
+   OBJETO: FONDO
+   Estructura: efectos de fondo
+   ======================================== */
+
+.bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.bg--gradient-pulse {
+    background: 
+        radial-gradient(circle at 80% 20%, rgba(132,197,247,0.12) 0%, transparent 60%),
+        radial-gradient(circle at 20% 80%, rgba(255,208,112,0.12) 0%, transparent 60%),
+        radial-gradient(circle at 50% 50%, rgba(242,95,127,0.08) 0%, transparent 70%),
+        radial-gradient(circle at 0% 100%, rgba(132,197,247,0.05) 0%, transparent 50%),
+        radial-gradient(circle at 100% 0%, rgba(255,208,112,0.05) 0%, transparent 50%);
+    animation: gradientPulse 12s ease-in-out infinite;
+    mix-blend-mode: soft-light;
+}
+
+/* ========================================
+   ESTADO
+   ======================================== */
+
+.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.is-loaded {
+    opacity: 1;
+}
+
+.is-active {
+    opacity: 0.6;
+}
+
+/* ========================================
+   ANIMACIONES
+   ======================================== */
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+@keyframes gradientPulse {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
+}
+
+@keyframes slideUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+    .nav--padded {
+        padding: 1.5rem 2rem;
+    }
+
+    .nav__list {
+        gap: 1.5rem;
+    }
+
+    .grid--columns-2 {
+        grid-template-columns: 1fr;
+    }
+
+    .section--padded-large {
+        padding: 4rem 2rem;
+    }
+}
